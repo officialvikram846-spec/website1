@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Studio | AI Workspace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">✦</div>
+            <span>CREATIVE STUDIO</span>
+        </div>
+
+        <p class="nav-label">WORKSPACE</p>
+        <nav>
+            <a class="nav-item active" href="#">⌂ &nbsp; Dashboard</a>
+            <a class="nav-item" href="#video">▣ &nbsp; AI Video</a>
+            <a class="nav-item" href="#clipper">✂ &nbsp; Video Clipper</a>
+            <a class="nav-item" href="#image">◈ &nbsp; AI Images</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="credits">
+                <span>YOUR WORKSPACE</span>
+                <h3>Creative mode</h3>
+                <p>Build something extraordinary.</p>
+            </div>
+            <div class="profile">
+                <div class="avatar">C</div>
+                <div>
+                    <strong>Creator</strong>
+                    <small>Free workspace</small>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <span class="breadcrumb">WORKSPACE / DASHBOARD</span>
+                <h2>Creative Dashboard</h2>
+            </div>
+            <div class="status">
+                <span class="status-dot"></span>
+                Studio online
+            </div>
+        </header>
+
+        <section class="welcome">
+            <div>
+                <span class="eyebrow">YOUR AI CREATIVE WORKSPACE</span>
+                <h1>Imagine it.<br><span>Create it.</span></h1>
+                <p>One workspace for your next big creative idea.</p>
+            </div>
+            <div class="welcome-art">✦</div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <h2>What would you like to create?</h2>
+                    <p>Choose your creative tool to get started.</p>
+                </div>
+            </div>
+
+            <div class="tool-grid">
+                <a href="#video" class="tool-card">
+                    <div class="tool-icon purple">▶</div>
+                    <h3>AI Video</h3>
+                    <p>Transform ideas into videos.</p>
+                    <span>EXPLORE TOOL →</span>
+                </a>
+
+                <a href="#clipper" class="tool-card">
+                    <div class="tool-icon orange">✂</div>
+                    <h3>Video Clipper</h3>
+                    <p>Turn long videos into shorts.</p>
+                    <span>EXPLORE TOOL →</span>
+                </a>
+
+                <a href="#image" class="tool-card">
+                    <div class="tool-icon blue">◈</div>
+                    <h3>AI Images</h3>
+                    <p>Bring your visual ideas to life.</p>
+                    <span>EXPLORE TOOL →</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section upload-section" id="clipper">
+            <div class="section-heading">
+                <div>
+                    <h2>Start with a video</h2>
+                    <p>Upload your video to our creative workspace.</p>
+                </div>
+                <span class="tag">VIDEO WORKSPACE</span>
+            </div>
+
+            <div class="upload-box" id="dropZone">
+                <div class="upload-icon">↑</div>
+                <h3>Drop your video here</h3>
+                <p>or select a video from your computer</p>
+
+                <input type="file" id="videoInput" accept="video/*" hidden>
+
+                <button type="button" id="uploadButton" class="primary-button">
+                          Choose video
+                </button>
+                <div id="uploadProgress" class="upload-progress">
+
+    <div class="progress-heading">
+        <span id="uploadProgressLabel">⬆ Uploading video</span>
+        <strong id="uploadPercentage">0%</strong>
+    </div>
+
+    <div class="progress-track">
+        <div id="uploadProgressBar"></div>
+    </div>
+
+</div>
+
+                <p class="file-info">Supported video formats · Maximum 100 MB</p>
+                <div id="fileName"></div>
+                <div id="uploadStatus"></div>
+                
+                <div id="transcriptionResult">
+                    <h3>AI Transcription</h3>
+                    <p id="detectedLanguage"></p>
+                    <div id="transcriptionText"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="video">
+            <div class="section-heading">
+                <div>
+                    <h2>Your creative journey</h2>
+                    <p>More creative tools are coming to your workspace.</p>
+                </div>
+            </div>
+            <div class="coming-soon">
+                <span>✦</span>
+                <div>
+                    <h3>Something extraordinary is coming.</h3>
+                    <p>AI generation and editing modules will be added next.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>CREATIVE STUDIO · BUILD 001</footer>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

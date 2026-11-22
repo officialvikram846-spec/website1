@@ -11,6 +11,15 @@ const uploadProgressBar = document.getElementById("uploadProgressBar");
 const uploadPercentage = document.getElementById("uploadPercentage");
 const uploadProgressLabel = document.getElementById("uploadProgressLabel");
 
+// Dropping a file outside the box would otherwise open it and replace the page.
+document.addEventListener("dragover", (event) => {
+    event.preventDefault();
+});
+
+document.addEventListener("drop", (event) => {
+    event.preventDefault();
+});
+
 uploadButton.addEventListener("click", () => {
     videoInput.click();
 });
@@ -19,6 +28,8 @@ videoInput.addEventListener("change", (event) => {
     console.log("FILE INPUT CHANGE EVENT FIRED");
 
     const file = event.target.files[0];
+    // Allow choosing the same file again after a refresh or a failed attempt.
+    event.target.value = "";
 
     if (file) {
         console.log("Selected video:", file.name);

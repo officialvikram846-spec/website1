@@ -3,3 +3,5 @@ uvicorn[standard]
 python-multipart
 faster-whisper
 av==18.1.0
+pytest
+httpx

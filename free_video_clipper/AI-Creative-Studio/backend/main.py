@@ -1,7 +1,10 @@
 
 from fastapi import FastAPI, UploadFile, File
+from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import os
+import tempfile
 import uuid
 from faster_whisper import WhisperModel
 
@@ -29,8 +32,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-UPLOAD_DIR = "uploads"
+# Keep videos out of the project folder. A file watcher (uvicorn --reload,
+# Live Server) treats a new file there as a change and reloads the page.
+UPLOAD_DIR = os.path.join(tempfile.gettempdir(), "ai-creative-studio-uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+
+def transcribe_file(path):
+    segments, info = model.transcribe(
+        path,
+        beam_size=5
+    )
+
+    transcription = []
+
+    for segment in segments:
+        transcription.append({
+            "start": round(segment.start, 2),
+            "end": round(segment.end, 2),
+            "text": segment.text.strip()
+        })
+
+    return info.language, transcription
 
 
 @app.get("/")
@@ -53,7 +76,10 @@ def health():
 async def upload_video(file: UploadFile = File(...)):
 
     if not file.content_type or not file.content_type.startswith("video/"):
-        return {"error": "Please upload a video file"}
+        return JSONResponse(
+            status_code=400,
+            content={"error": "Please upload a video file"},
+        )
 
     extension = os.path.splitext(file.filename or "")[1]
     filename = f"{uuid.uuid4()}{extension}"
@@ -65,25 +91,20 @@ async def upload_video(file: UploadFile = File(...)):
 
     print("Starting AI transcription...")
 
-    segments, info = model.transcribe(
-        filepath,
-        beam_size=5
-    )
-
-    transcription = []
-
-    for segment in segments:
-        transcription.append({
-            "start": round(segment.start, 2),
-            "end": round(segment.end, 2),
-            "text": segment.text.strip()
-        })
+    try:
+        language, transcription = await run_in_threadpool(transcribe_file, filepath)
+    except Exception as exc:
+        print("Transcription failed:", exc)
+        return JSONResponse(
+            status_code=500,
+            content={"error": "Transcription failed: " + str(exc)},
+        )
 
     print("Transcription completed!")
 
     return {
         "message": "Video uploaded and transcribed successfully!",
         "filename": filename,
-        "language": info.language,
+        "language": language,
         "transcription": transcription
     }
